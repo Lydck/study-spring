@@ -5,8 +5,8 @@ import org.aspectj.lang.annotation.Aspect;
 
 @Aspect
 public class TestAspect {
-	@AfterReturning("@annotation(com.lydck.aspectj.NeedTest) and execution(* serviceTo(..))")
-	public void needTestFun() {
-		System.out.println("needTestFun() executed!");
+	@AfterReturning("this(com.lydck.aspectj.Seller)")
+	public void thisTest() {
+		System.out.println("thisTest() executed!");
 	}
 }
