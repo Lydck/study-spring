@@ -18,14 +18,22 @@ public class BeanUtil {
 	}
 
 	public static void main(String[] args) {
-		A a = new A();
-		a.setPropertyA("propertyA");
-		a.setPropertyB("propertyB");
-		A.propertyC = "propertyC";
-		B b = new B();
-		copyBean(a, b);
-		System.out.println(b.propertyA);
-		System.out.println(b.getPropertyB());
-		System.out.println(B.propertyC);
+//		A a = new A();
+//		a.setPropertyA("propertyA");
+//		a.setPropertyB("propertyB");
+//		A.propertyC = "propertyC";
+//		B b = new B();
+//		copyBean(a, b);
+//		System.out.println(b.propertyA);
+//		System.out.println(b.getPropertyB());
+//		System.out.println(B.propertyC);
+		try {
+			throw new RuntimeException("hehehehe");
+		} catch(Exception e) { 
+			System.out.println(e.getLocalizedMessage());
+		}
+		finally {
+			System.out.println("hahahh");
+		}
 	}
 }
