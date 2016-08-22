@@ -12,7 +12,12 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
-
+		<!-- cglig -->
+		<dependency>
+			<groupId>net.sourceforge.cglib</groupId>
+			<artifactId>com.springsource.net.sf.cglib</artifactId>
+			<version>2.2.0</version>
+		</dependency>
 		<!-- spring相关 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
