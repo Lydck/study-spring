@@ -3,3 +3,4 @@
 /.project
 /target
 /target/classes/META-INF/maven/com.ibm.lydck/study-spring/pom.properties
+/target
