@@ -35,5 +35,14 @@ public class TestAspect {
 		System.out.println("arg[0]: " + pjp.getArgs()[0]);
 		System.out.println("signature: " + pjp.getSignature().toString());
 		pjp.proceed();
+		System.out.println("------joinPointAccess-------");
+	}
+	
+	@After("target(com.lydck.aspectj.Seller) && args(goods, clientName)")
+	public void bindJoinPointParams(String goods, String clientName) {
+		System.out.println("---------bindJoinPointParams--------");
+		System.out.println("goods: " + goods);
+		System.out.println("clientName: " + clientName);
+		System.out.println("---------bindJoinPointParams--------");
 	}
 }

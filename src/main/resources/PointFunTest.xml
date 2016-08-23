@@ -13,6 +13,7 @@
 	
 	<aop:aspectj-autoproxy/>
 	<bean id="naiveWaiter" class="com.lydck.aspectj.NaiveWaiter"/>
+	<bean id="smartSeller" class="com.lydck.aspectj.SmartSeller"/>
 	<bean class="com.lydck.aspectj.EnableSellerAspect"/>
 	<bean class="com.lydck.aspectj.TestAspect"/>
 	

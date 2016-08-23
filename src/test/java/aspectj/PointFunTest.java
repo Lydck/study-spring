@@ -10,8 +10,10 @@ public class PointFunTest {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("PointFunTest.xml");
 		Waiter naiveWaiter = (Waiter) context.getBean("naiveWaiter");
+		Seller smartSeller = (Seller) context.getBean("smartSeller");
 		naiveWaiter.greetTo("lydck");
 		naiveWaiter.serviceTo("lydck");
 		((Seller)naiveWaiter).sell("lydck", "John");
+		smartSeller.sell("book", "Tom");
 	}
 }
