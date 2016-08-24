@@ -45,4 +45,18 @@ public class TestAspect {
 		System.out.println("clientName: " + clientName);
 		System.out.println("---------bindJoinPointParams--------");
 	}
+	
+	@Before("this(seller)")
+	public void bindProxyObj(Seller seller) {
+		System.out.println("----------bindProxyObj----------");
+		System.out.println(seller.getClass().getName());
+		System.out.println("----------bindPrxyObj-----------");
+	}
+	
+	@AfterReturning(value="target(com.lydck.aspectj.Seller)", returning="retVal")
+	public void bindreturnValue(int retVal) {
+		System.out.println("----------bindReturnValue-----------");
+		System.out.println("return value:" + retVal);
+		System.out.println("----------bindReturnValue------------");
+	}
 }
