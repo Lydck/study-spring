@@ -10,6 +10,13 @@
 	   	http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	   	http://www.springframework.org/schema/aop
 	   	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-	
-	
+
+	<aop:config proxy-target-class="true">
+		<aop:aspect ref="adviceMethods">
+			<aop:before method="preGreeting" pointcut="target(com.lydck.aspectj.NaiveWaiter) and execution(* greetTo(..))"/>
+		</aop:aspect>
+	</aop:config>	
+	<bean id="adviceMethods" class="com.lydck.aspectj.AdviceMethods"/>
+	<bean id="naiveWaiter" class="com.lydck.aspectj.NaiveWaiter"/>
+	<bean id="naughtyWaiter" class="com.lydck.aspectj.NaughtyWaiter"/>
 </beans>
