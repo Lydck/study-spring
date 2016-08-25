@@ -3,6 +3,7 @@ package aspectj;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.lydck.aspectj.Seller;
 import com.lydck.aspectj.Waiter;
 
 public class SchemaAspectTest {
@@ -12,5 +13,6 @@ public class SchemaAspectTest {
 		Waiter naughtyWaiter = (Waiter) context.getBean("naughtyWaiter");
 		naiveWaiter.greetTo("lydck");
 		naughtyWaiter.greetTo("lydck");
+		((Seller) naiveWaiter).sell("Bean","John");
 	}
 }

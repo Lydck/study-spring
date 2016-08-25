@@ -10,7 +10,8 @@
 	   	http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	   	http://www.springframework.org/schema/aop
 	   	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-
+	
+	<!-- 前置增强 -->
 	<aop:config proxy-target-class="true">
 		<aop:aspect ref="adviceMethods">
 			<aop:before method="preGreeting" pointcut="target(com.lydck.aspectj.NaiveWaiter) and execution(* greetTo(..))"/>
@@ -19,4 +20,19 @@
 	<bean id="adviceMethods" class="com.lydck.aspectj.AdviceMethods"/>
 	<bean id="naiveWaiter" class="com.lydck.aspectj.NaiveWaiter"/>
 	<bean id="naughtyWaiter" class="com.lydck.aspectj.NaughtyWaiter"/>
+	
+	<!-- 引介增强 -->
+	<aop:config>
+		<aop:aspect>
+			<aop:declare-parents types-matching="com.lydck.aspectj.Waiter+" implement-interface="com.lydck.aspectj.Seller"
+				default-impl="com.lydck.aspectj.SmartSeller"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- 前置绑定方法入参增强 -->
+	<aop:config>
+		<aop:aspect ref="adviceMethods">
+			<aop:before method="bindParams"	pointcut="target(com.lydck.aspectj.NaiveWaiter)"/>
+		</aop:aspect>
+	</aop:config>
 </beans>
