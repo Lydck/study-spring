@@ -11,5 +11,16 @@
 	   	http://www.springframework.org/schema/aop
 	   	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
+	<!-- 加载@ServiceBean -->
+	<context:component-scan base-package="com.lydck.transact"/>
+	<!-- 加载Properties -->
+	<context:property-placeholder location="file:conf/jdbc.properties"/>
 	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		p:driverClassName="${jdbc.dirverClassName}"
+		p:url="${jdbc.url}"
+		p:username="${jdbc.username}"
+		p:password="${jdbc.password}"/>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+		p:dataSource-ref="dataSource"/>
 </beans>
