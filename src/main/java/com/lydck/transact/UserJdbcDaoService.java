@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.lydck.domain.User;
 
-@Service("userService")
+@Service("userJdbcService")
 public class UserJdbcDaoService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

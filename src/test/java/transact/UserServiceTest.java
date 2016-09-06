@@ -6,21 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.lydck.domain.User;
-import com.lydck.transact.UserJdbcDaoService;
+import com.lydck.transact.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("jdbcWithoutTx.xml")
-public class UserJdbcDaoServiceTest {
+@ContextConfiguration("jdbcWithTx.xml")
+public class UserServiceTest {
 	
 	@Autowired
-	private UserJdbcDaoService userJdbcService;
+	private UserService userService;
 	
 	@Test
-	public void addUser() {
-		User user = new User();
-		user.setName("lydck");
-		user.setScore(99);
-		userJdbcService.addUser(user);
+	public void login() {
+		userService.login("lydck");
 	}
 }
