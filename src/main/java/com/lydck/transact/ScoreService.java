@@ -12,8 +12,8 @@ public class ScoreService {
 	
 	public void addScore(String userName, int toAdd) {
 		String sql = "update user set score = score + ? where name = ?";
-		if(toAdd == 1)
-			throw new RuntimeException("增加用户积分异常啦！");
+		if(userName.equals("lydck"))
+			throw new RuntimeException("出异常啦");
 		jdbcTemplate.update(sql, toAdd, userName);
 	}
 }
