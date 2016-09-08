@@ -2,8 +2,8 @@ package com.lydck.transact;
 
 import java.util.Date;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.impl.LogFactoryImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service("userService")
 public class UserService {
 	
-	Log loger = LogFactoryImpl.getLog(UserService.class);
+	Logger loger = LoggerFactory.getLogger(UserService.class);
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

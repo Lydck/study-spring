@@ -2,8 +2,8 @@ package com.lydck.transact;
 
 import java.util.Date;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.impl.LogFactoryImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service("userThreadService")
 public class UserThreadService {
 	
-	Log loger = LogFactoryImpl.getLog(UserThreadService.class);
+	Logger loger = LoggerFactory.getLogger(UserThreadService.class);
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -20,6 +20,7 @@ public class UserThreadService {
 	
 	public void loginThread(String userName) {
 		loger.info("用户登录...");
+		loger.debug("打印一下对象：{}", new Object());
 		updateLastLoginTime(userName);
 		loger.info("启动另外线程登录增加用户积分");
 		new MyThread(scoreService, userName, 1).start();
