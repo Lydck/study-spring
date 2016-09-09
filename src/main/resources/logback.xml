@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>  
+<configuration debug="true">
+	<contextName>study-spring</contextName>
+	<property name="LOG_HOME" value="log"/>
+	<property name="isToFile" value="false"/>
+	<!-- console appender -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">  
-        <encoder>  
-            <pattern>%d{yyyy.MM.dd HH:mm:ss.S} [%thread] %-5level %logger{36} - %msg%n</pattern>  
-        </encoder>  
-    </appender>  
-    <logger name="com.lydck" level="debug" />  
-    <logger name="org.springframework.beans.factory" level="debug" />  
-    <root level="debug">  
-        <appender-ref ref="console"/>  
-    </root>  
+        <encoder>
+            <pattern>%d{yyyy.MM.dd HH:mm:ss.SSS} [%thread] %-5level %logger{30} - %msg%n</pattern>  
+        </encoder>
+    </appender>
+    <!-- file appender -->
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+    	<file>${LOG_HOME:-log}/myApp.log</file>
+    	<encoder>
+    		<pattern>%d{yyyy.MM.dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{30} - %msg%n</pattern>
+    	</encoder>
+    </appender>
+    
+    <!-- 条件输出log -->
+    <if condition='property("isToFile").contains("true")'>
+    	<then>
+    		<logger name="com.lydck">
+    			<appender-ref ref="file"/>
+    		</logger>
+    	</then>
+    </if>
+    
+    <!-- 业务代码的logger --> 
+    <logger name="com.lydck" level="debug"/>
+    
+    <!-- spring框架的logger -->
+    <logger name="org.springframework.beans.factory" level="debug" />
+    
+    <!-- 根logger -->
+    <root level="debug">
+        <appender-ref ref="console"/>
+    </root>
 </configuration>
