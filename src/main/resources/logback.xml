@@ -2,7 +2,7 @@
 <configuration debug="true">
 	<contextName>study-spring</contextName>
 	<property name="LOG_HOME" value="log"/>
-	<property name="isToFile" value="false"/>
+	<property name="isToFile" value="true"/>
 	<!-- console appender -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">  
         <encoder>
@@ -10,7 +10,7 @@
         </encoder>
     </appender>
     <!-- file appender -->
-    <appender name="file" class="ch.qos.logback.core.FileAppender">
+    <appender name="file" class="ch.qos.logback.core.FileAppender" encoding="utf8">
     	<file>${LOG_HOME:-log}/myApp.log</file>
     	<encoder>
     		<pattern>%d{yyyy.MM.dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{30} - %msg%n</pattern>
@@ -18,7 +18,7 @@
     </appender>
     
     <!-- 条件输出log -->
-    <if condition='property("isToFile").contains("true")'>
+    <if condition='property("isToFile").equals("true")'>
     	<then>
     		<logger name="com.lydck">
     			<appender-ref ref="file"/>

@@ -129,11 +129,17 @@
 		</dependency>
 		<!-- 支持logback条件配置依赖 -->
 		<dependency>
-	        <groupId>org.codehaus.janino</groupId>
-	        <artifactId>janino</artifactId>
-	        <version>3.0.0</version>
-    	</dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 		<!-- logback end -->
+		<!-- apache -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
