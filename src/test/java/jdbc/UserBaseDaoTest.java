@@ -57,4 +57,28 @@ public class UserBaseDaoTest {
 		boolean addUsers = userDao.addUsers(users);
 		System.out.println(addUsers);
 	}
+	
+	@Test
+	public void queryUserById() {
+		User user = userDao.queryUserById(0);
+		System.out.println(user);
+	}
+	
+	@Test
+	public void queryUsersByName() {
+		List<User> users = userDao.queryUsersByName("乔峰");
+		System.out.println(users);
+	}
+	
+	@Test
+	public void getUsers() {
+		List<User> users = userDao.getUsers(1, 10);
+		System.out.println(users);
+	}
+	
+	@Test
+	public void getUserCount() {
+		int userCount = userDao.getUserCount();
+		System.out.println(userCount);
+	}
 }

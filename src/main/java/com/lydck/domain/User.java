@@ -8,9 +8,16 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class User implements Serializable{
 	private static final long serialVersionUID = 6270342937057798579L;
+	private int id;
 	private String name;
 	private int score;
 	private Date lastLoginTime;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

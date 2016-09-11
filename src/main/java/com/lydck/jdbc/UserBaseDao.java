@@ -2,8 +2,10 @@ package com.lydck.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowCallbackHandler;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
@@ -69,5 +74,64 @@ public class UserBaseDao {
 			}
 		});
 		return true;
+	}
+	
+	public User queryUserById(int id) {
+		logger.info("根据用户ID查询user，id: " + id);
+		
+		User user = new User();
+		jdbcTemplate.query(UserDaoServiceSql.QUERY_USER_BY_ID, new Object[] {id}, new RowCallbackHandler() {
+			
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				user.setId(rs.getInt("id"));
+				user.setName(rs.getString("name"));
+				user.setScore(rs.getInt("score"));
+				user.setLastLoginTime(rs.getTimestamp("last_login_time"));
+			}
+		});
+		return user.getId() == 0 ? null : user;
+	}
+	
+	public List<User> queryUsersByName(String name) {
+		logger.info("根据name模糊查询user，name:" + name);
+		List<User> users = new ArrayList<>();
+		jdbcTemplate.query(UserDaoServiceSql.QUERY_USERS_BY_NAME, new PreparedStatementSetter() {
+
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, "%" + name + "%");
+			}
+		}, new RowCallbackHandler() {
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setName(rs.getString("name"));
+				user.setScore(rs.getInt("score"));
+				user.setLastLoginTime(rs.getTimestamp("last_login_time"));
+				users.add(user);
+			}
+		});
+		return users.size() == 0 ? null : users;
+	}
+	public List<User> getUsers(int fromId, int total){
+		logger.info("根据ID查询user， name:" + fromId + " total:" + total);
+		return jdbcTemplate.query(UserDaoServiceSql.QUERY_USERS_BY_ID, new Object[] {fromId, fromId + total}, new RowMapper<User>() {
+
+			@Override
+			public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setName(rs.getString("name"));
+				user.setScore(rs.getInt("score"));
+				user.setLastLoginTime(rs.getTimestamp("last_login_time"));
+				return user;
+			}
+		});
+	}
+	public int getUserCount() {
+		logger.info("获取user总数");
+		return jdbcTemplate.queryForObject(UserDaoServiceSql.QUERY_USER_COUNT, Integer.class);
 	}
 }
