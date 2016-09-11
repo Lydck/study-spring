@@ -134,12 +134,15 @@ public class UserBaseDao {
 			}
 		});
 	}
+	
 	public int getUserCount() {
 		logger.info("获取user总数");
 		return jdbcTemplate.queryForObject(UserDaoServiceSql.QUERY_USER_COUNT, Integer.class);
 	}
+	
 	public int getNameSum(final String name) {
 		logger.info("调用存储过程查询相同名字的user数");
+		
 		return jdbcTemplate.execute(UserDaoServiceSql.CALL_PRO_NAME_SUM, new CallableStatementCallback<Integer>() {
 
 			@Override
@@ -151,4 +154,5 @@ public class UserBaseDao {
 			}
 		});
 	}
+	
 }

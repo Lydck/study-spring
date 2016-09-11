@@ -18,4 +18,7 @@ public class UserDaoServiceSql {
 	
 	/** 调用存储过程查询相同名字的user数*/
 	public static final String CALL_PRO_NAME_SUM = "{call p_get_name_sum(?,?)}";
+	
+	/** 添加user头像*/
+	public static final String ADD_USER_AVATAR = "insert into user_image(user_id, avatar) values(?, ?)";
 }
