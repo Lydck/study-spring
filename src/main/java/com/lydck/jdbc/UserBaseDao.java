@@ -1,17 +1,21 @@
 package com.lydck.jdbc;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -133,5 +137,18 @@ public class UserBaseDao {
 	public int getUserCount() {
 		logger.info("获取user总数");
 		return jdbcTemplate.queryForObject(UserDaoServiceSql.QUERY_USER_COUNT, Integer.class);
+	}
+	public int getNameSum(final String name) {
+		logger.info("调用存储过程查询相同名字的user数");
+		return jdbcTemplate.execute(UserDaoServiceSql.CALL_PRO_NAME_SUM, new CallableStatementCallback<Integer>() {
+
+			@Override
+			public Integer doInCallableStatement(CallableStatement cs) throws SQLException, DataAccessException {
+				cs.setString(1, name);
+				cs.registerOutParameter(2, Types.INTEGER);
+				cs.execute();
+				return cs.getInt(2);
+			}
+		});
 	}
 }

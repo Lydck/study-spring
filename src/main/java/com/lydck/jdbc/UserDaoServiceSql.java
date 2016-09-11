@@ -15,4 +15,7 @@ public class UserDaoServiceSql {
 	
 	/** 查询user总数*/
 	public static final String QUERY_USER_COUNT = "select count(1) from user";
+	
+	/** 调用存储过程查询相同名字的user数*/
+	public static final String CALL_PRO_NAME_SUM = "{call p_get_name_sum(?,?)}";
 }
