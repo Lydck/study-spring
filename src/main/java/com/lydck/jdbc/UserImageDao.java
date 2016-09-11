@@ -1,6 +1,9 @@
 package com.lydck.jdbc;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.slf4j.Logger;
@@ -9,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.AbstractLobCreatingPreparedStatementCallback;
+import org.springframework.jdbc.core.support.AbstractLobStreamingResultSetExtractor;
 import org.springframework.jdbc.support.lob.LobCreator;
 import org.springframework.jdbc.support.lob.LobHandler;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
 import com.lydck.domain.UserImage;
 
@@ -40,5 +45,24 @@ public class UserImageDao {
 				lobCreator.setBlobAsBytes(ps, 2, userImage.getAvatar());
 			}
 		});
+	}
+	
+	public UserImage getUserAvatar(final int userId) {
+		logger.info("根据user_id获取user头像，userId：" + userId);
+		UserImage userImage = new UserImage();
+		jdbcTemplate.query(UserDaoServiceSql.GET_USER_AVATAR, new Object[] {userId}, new AbstractLobStreamingResultSetExtractor<UserImage>() {
+
+			@Override
+			protected void streamData(ResultSet rs) throws SQLException, IOException, DataAccessException {
+				InputStream blobAsBinaryStream = lobHandler.getBlobAsBinaryStream(rs, 2);
+				if(blobAsBinaryStream != null) {
+					userImage.setUserId(rs.getInt(1));
+					byte[] avatar = FileCopyUtils.copyToByteArray(blobAsBinaryStream);
+					userImage.setAvatar(avatar);
+				}
+			}
+			
+		});
+		return userImage;
 	}
 }

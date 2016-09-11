@@ -21,4 +21,7 @@ public class UserDaoServiceSql {
 	
 	/** 添加user头像*/
 	public static final String ADD_USER_AVATAR = "insert into user_image(user_id, avatar) values(?, ?)";
+	
+	/** 根据userId获取用户头像*/
+	public static final String GET_USER_AVATAR = "select user_id, avatar from user_image where user_id = ?";
 }

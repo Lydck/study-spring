@@ -1,5 +1,6 @@
 package jdbc;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
@@ -29,5 +30,18 @@ public class UserImageDaoTest {
 		byte[] avatar = FileCopyUtils.copyToByteArray(cpr.getFile());
 		userImage.setAvatar(avatar);
 		userImageDao.addUserAvatar(userImage);
+	}
+	
+	@Test
+	public void getUserAvatar() throws IOException {
+		UserImage userAvatar = userImageDao.getUserAvatar(7);
+		String projectDir = System.getProperties().getProperty("user.dir");
+		File avatar = new File(projectDir + "/avators/", "qiaofeng.jpg");
+		File fileParent = avatar.getParentFile();  
+		if(!fileParent.exists()){  
+		    fileParent.mkdirs();  
+		}  
+		avatar.createNewFile();
+		FileCopyUtils.copy(userAvatar.getAvatar(), avatar);
 	}
 }
