@@ -23,6 +23,7 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer;
 import org.springframework.stereotype.Service;
 
 import com.lydck.domain.User;
@@ -33,6 +34,9 @@ public class UserBaseDao {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private MySQLMaxValueIncrementer keyGenerator;
 	
 	public boolean addUser(User user) {
 		logger.info("创建user，入参：" + user);
@@ -155,4 +159,8 @@ public class UserBaseDao {
 		});
 	}
 	
+	public int getUserId() {
+		logger.info("获取user的自增键");
+		return keyGenerator.nextIntValue();
+	}
 }
