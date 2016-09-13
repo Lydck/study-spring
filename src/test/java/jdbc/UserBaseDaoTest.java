@@ -93,4 +93,9 @@ public class UserBaseDaoTest {
 		int userId = userDao.getUserId();
 		System.out.println(userId);
 	}
+	
+	@Test
+	public void logon() {
+		userDao.logon(7);
+	}
 }
