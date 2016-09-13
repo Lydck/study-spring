@@ -24,4 +24,8 @@ public class UserDaoServiceSql {
 	
 	/** 根据userId获取用户头像*/
 	public static final String GET_USER_AVATAR = "select user_id, avatar from user_image where user_id = ?";
+	
+	/* =================SQL带声明参数================*/
+	/** 更新user最后登录时间*/
+	public static final String USER_LOGON = "update user set last_login_time = :lastLoginTime where id = :userId";
 }

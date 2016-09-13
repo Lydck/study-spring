@@ -87,4 +87,15 @@ public class UserBaseDaoTest {
 		int nameSum = userDao.getNameSum("乔峰");
 		System.out.println(nameSum);
 	}
+	
+	@Test
+	public void getUserId() {
+		int userId = userDao.getUserId();
+		System.out.println(userId);
+	}
+	
+	@Test
+	public void logon() {
+		userDao.logon(7);
+	}
 }

@@ -8,7 +8,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +24,10 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer;
 import org.springframework.stereotype.Service;
 
 import com.lydck.domain.User;
@@ -33,6 +38,12 @@ public class UserBaseDao {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private MySQLMaxValueIncrementer keyGenerator;
+	
+	@Autowired
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	public boolean addUser(User user) {
 		logger.info("创建user，入参：" + user);
@@ -155,4 +166,16 @@ public class UserBaseDao {
 		});
 	}
 	
+	public int getUserId() {
+		logger.info("获取user的自增键");
+		return keyGenerator.nextIntValue();
+	}
+	
+	public void logon(final int userId) {
+		logger.info("用户登录，更新最后登录时间");
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("userId", userId);
+		paramMap.put("lastLoginTime", new Date());
+		namedParameterJdbcTemplate.update(UserDaoServiceSql.USER_LOGON, paramMap);
+	}
 }

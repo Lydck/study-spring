@@ -23,8 +23,18 @@
 		p:password="${jdbc.password}"/>
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
 		p:dataSource-ref="dataSource"/>
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource"/>
+	</bean>
 		
 	<!-- Lob类型数据操作 -->
 	<bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
 		lazy-init="true"/>
+		
+	<!-- 主键生成bean -->
+	<bean id="keyGenerator" class="org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer"
+		p:incrementerName="user_key"
+		p:columnName="user_id"
+		p:cacheSize="100"
+		p:dataSource-ref="dataSource"/>
 </beans>
