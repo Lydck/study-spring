@@ -30,7 +30,7 @@
     <logger name="com.lydck" level="debug"/>
     
     <!-- spring框架的logger -->
-    <logger name="org.springframework.beans.factory" level="TRACE" />
+    <logger name="org.springframework" level="TRACE" />
     
     <!-- 根logger -->
     <root level="debug">
