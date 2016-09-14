@@ -30,10 +30,9 @@
 		<constructor-arg ref="dataSource"/>
 	</bean>
 	
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
 		p:dataSource-ref="dataSource"
-		p:mappingDirectoryLocations="classpath:orm">
+		p:mappingLocations="classpath:orm/user.hbm.xml">
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
@@ -47,4 +46,15 @@
 	<!-- 配置Hibernate的事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
 		p:sessionFactory-ref="sessionFactory"/>
+		
+	<!-- 用AOP配置添加事务的方法 -->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="hiberUserService" expression="execution(* com.lydck.orm.*.*(..))"/>
+		<aop:advisor pointcut-ref="hiberUserService" advice-ref="jdbcAdvice"	order="0"/>
+	</aop:config>
+		<tx:advice id="jdbcAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" read-only="false" rollback-for="java.lang.Exception"/>
+		</tx:attributes>
+	</tx:advice>
 </beans>
