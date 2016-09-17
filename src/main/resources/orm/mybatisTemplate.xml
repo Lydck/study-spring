@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   	http://www.springframework.org/schema/context
+	   	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	   	http://www.springframework.org/schema/aop
+	   	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	   	http://www.springframework.org/schema/tx
+	   	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+	<!-- 加载@ServiceBean -->
+	<context:component-scan base-package="com.lydck.orm"/>
+	<!-- 加载Properties -->
+	<context:property-placeholder location="file:conf/jdbc.properties"/>
+	<!-- 配置dataSource -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		p:driverClassName="${jdbc.dirverClassName}"
+		p:url="${jdbc.url}"
+		p:username="${jdbc.username}"
+		p:password="${jdbc.password}"/>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:comfigLocation="classpath:orm/myBatisConfig.xml"
+		p:mapperLocations="classpath:orm/user.xml"	/>
+	
+	<!-- 用AOP配置添加事务的方法 
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="hiberUserService" expression="execution(* com.lydck.orm.*.*(..))"/>
+		<aop:advisor pointcut-ref="hiberUserService" advice-ref="jdbcAdvice"	order="0"/>
+	</aop:config>
+		<tx:advice id="jdbcAdvice" transaction-manager="transactionManager">
+			<tx:attributes>
+				<tx:method name="*" read-only="false" rollback-for="java.lang.Exception"/>
+			</tx:attributes>
+		</tx:advice>
+	-->
+</beans>

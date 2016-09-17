@@ -19,7 +19,7 @@ public class UserHiberDaoServiceTest {
 	@Test
 	public void addUser() {
 		User user = new User();
-		user.setName("乔峰");
+		user.setName("阿朱");
 		user.setScore(99);
 		userDao.addUser(user);
 	}
