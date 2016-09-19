@@ -7,7 +7,18 @@
 			id, NAME, score, last_login_time
 		FROM
 			USER
-		WHERE
-			id = #{id}, NAME = #{name}, score = #{score}, last_login_time = #{lastLoginTime}
+		WHERE 1 = 1
+			<if test="id != null">
+    			AND id = #{id}
+  			</if>
+  			<if test="name != null">
+  				AND name = #{name}
+  			</if>
+  			<if test="score != null">
+  				AND score = #{score}
+  			</if>
+  			<if test="lastLoginTime != null">
+  				AND last_login_time = #{lastLoginTime}
+  			</if>
 	</select>
 </mapper>

@@ -6,7 +6,6 @@
 	</settings>
 	<!-- 全限定类别名，方便sql语句映射文件中入参类型为对象时，使用对象的别名，简化配置 -->
 	<typeAliases>
-		<package name="com.lydck.domain"/>
-		<typeAlias alias="User" type="User"/>	
+		<typeAlias alias="User" type="com.lydck.domain.User"/>	
 	</typeAliases>
 </configuration>

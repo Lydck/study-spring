@@ -27,8 +27,12 @@
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSource"
-		p:comfigLocation="classpath:orm/myBatisConfig.xml"
+		p:configLocation="classpath:orm/myBatisConfig.xml"
 		p:mapperLocations="classpath:orm/user.xml"	/>
+	
+	<bean id="mybatisTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
 	
 	<!-- 用AOP配置添加事务的方法 
 	<aop:config proxy-target-class="true">
