@@ -13,6 +13,6 @@ public class UserBatisDaoService {
 	private SqlSessionTemplate batisTemplate;
 	
 	public User getUser(User user) {
-		return batisTemplate.selectOne(UserBatisDaoService.class.getName() + ".getUser", user);//com.lydck.orm.UserBatisDaoService
+		return batisTemplate.selectOne(UserBatisDaoService.class.getName() + ".getUser", user);
 	}
 }
