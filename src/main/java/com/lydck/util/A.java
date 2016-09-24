@@ -7,6 +7,16 @@ public class A {
 	private String propertyB;
 	public static String propertyC;
 	public Weekday workDay;
+	@ParamValiAnno(nullable = false, description="内容对象不能为空")
+	private Object context;
+
+	public Object getContext() {
+		return context;
+	}
+
+	public void setContext(Object context) {
+		this.context = context;
+	}
 
 	public String getPropertyA() {
 		return propertyA;
@@ -44,7 +54,8 @@ public class A {
 
 		A param = new A();
 		param.setPropertyA("123@q.com");
-		param.setPropertyB("B");
+		param.setPropertyB("123456789123");
+		param.setContext(new Object());
 		String result = ValidateUtil.validate(param);
 
 		System.out.println(result);
