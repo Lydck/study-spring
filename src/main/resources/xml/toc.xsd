@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.lydck.example/xml/toc">
+
+	<element name="toc" type="tns:toc" />
+
+	<complexType name="toc">
+		<sequence>
+			<element name="topic" maxOccurs="unbounded" minOccurs="1" type="topic" />
+		</sequence>
+		<attribute name="label" type="token" />
+	</complexType>
+	<complexType name="topic">
+		<sequence>
+			<element name="link" type="link" />
+		</sequence>
+		<attribute name="href" type="token" />
+		<attribute name="label" type="token" />
+	</complexType>
+	<complexType name="link">
+		<sequence />
+		<attribute name="toc" type="token" />
+	</complexType>
+</schema>
