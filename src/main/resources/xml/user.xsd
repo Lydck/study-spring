@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.lydck.com/domain/user"
+	xmlns:tn="http://www.lydck.com/domain/user" elementFormDefault="qualified">
+
+	<annotation>
+		<appinfo>
+
+		</appinfo>
+	</annotation>
+	<element name="user">
+		<complexType>
+			<sequence>
+				<element name="id" type="int" />
+				<element name="name" type="string" />
+				<element name="score" type="int" />
+				<element name="lastLoginTime" type="dateTime"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

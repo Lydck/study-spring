@@ -3,9 +3,12 @@ package com.lydck.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+@XmlRootElement
 public class User implements Serializable {
 	private static final long serialVersionUID = 6270342937057798579L;
 	private int id;
