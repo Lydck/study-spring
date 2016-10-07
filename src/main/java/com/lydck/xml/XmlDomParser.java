@@ -74,6 +74,17 @@ public class XmlDomParser {
 			}
 			writer.write("</" + nodeName + ">"); 
 			writer.write(lineSeparator);
+		case Node.TEXT_NODE:
+				print(writer, node.getNodeValue());
+				break;
+		case Node.CDATA_SECTION_NODE:
+			writer.write("<![CDATA[");
+			writer.write(node.getNodeValue());
+			writer.write("]]>");
+		case Node.COMMENT_NODE:
+			writer.write(indentLevel + "<!-- " + node.getNodeValue() + " -->");
+			writer.write(lineSeparator);
+			break;
 		default:
 			break;
 		}
