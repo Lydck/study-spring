@@ -9,6 +9,7 @@ import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.joran.spi.JoranException;
+import ch.qos.logback.core.util.StatusPrinter;
 
 public class PatternSample {
 	public static void main(String[] args) {
@@ -25,6 +26,7 @@ public class PatternSample {
 		} catch (JoranException e) {
 			e.printStackTrace();
 		}
+		StatusPrinter.printInCaseOfErrorsOrWarnings(context);
 		for (int i = 0; i < 5; i++) {
 			if (i == 3) {
 				logger.debug("who calls thee?");

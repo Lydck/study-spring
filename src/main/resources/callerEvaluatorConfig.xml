@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<evaluator name="DISPLAY_CALLER_EVAL">
-		<expression> logger.contains("chapters.layouts") &amp;&amp;
-			message.contains("who calls thee")
-		</expression>
+		<expression> logger.contains("chapters.layouts") &amp;&amp;	message.contains("who calls thee")</expression>
 	</evaluator>
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
