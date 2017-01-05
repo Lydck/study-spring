@@ -1,5 +1,8 @@
 package com.lydck.util;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 import net.sf.cglib.beans.BeanCopier;
@@ -18,7 +21,7 @@ public class BeanUtil {
 	}
 
 	public static void main(String[] args) {
-		A a = new A();
+		/*A a = new A();
 		a.setPropertyA("propertyA");
 		a.setPropertyB("propertyB");
 		A.propertyC = "propertyC";
@@ -28,6 +31,16 @@ public class BeanUtil {
 		System.out.println(b.propertyA);
 		System.out.println(b.getPropertyB());
 		System.out.println(B.propertyC);
-		System.out.println(b.getWorkDay());
+		System.out.println(b.getWorkDay())*/;
+		Enumeration<URL> url = null;
+		try {
+			url = ClassLoader.getSystemResources("com/lydck/util");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		while (url.hasMoreElements()) {
+			System.out.println(url.nextElement());
+		}
 	}
 }
