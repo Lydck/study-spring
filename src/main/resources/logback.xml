@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
-	<contextName>study-spring</contextName>
+	<contextName>spring-mvc</contextName>
 	<property name="LOG_HOME" value="log" />
 	<property name="isToFile" value="true" />
 	<!-- console appender -->
@@ -9,59 +9,15 @@
 			<pattern>%d{yyyy.MM.dd HH:mm:ss.SSS} [%thread] %-5level %logger{30} - %msg%n</pattern>
 		</encoder>
 	</appender>
-	<!-- file appender -->
-	<appender name="file" class="ch.qos.logback.core.FileAppender" encoding="utf8">
-		<file>${LOG_HOME:-log}/myApp.log</file>
-		<encoder>
-			<pattern>%d{yyyy.MM.dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{30} - %msg%n</pattern>
-		</encoder>
-	</appender>
-	<!-- db appender -->
-	<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
-		<connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-			<driverClass>com.mysql.cj.jdbc.Driver</driverClass>
-			<url>jdbc:mysql://localhost:3306/logback?serverTimezone=UTC</url>
-			<user>root</user>
-			<password>123456</password>
-		</connectionSource>
-		<insertHeaders>true</insertHeaders>
-	</appender>
-	<appender name="SIFTING" class="ch.qos.logback.classic.sift.SiftingAppender"> 
-		<Discriminator> 
-			<Key>id</Key> 
-			<FieldName>SESSION_ATTRIBUTE</FieldName> 
-			<AdditionalKey>username</AdditionalKey> 
-			<DefaultValue>NA</DefaultValue> 
-		</Discriminator> 
-		<sift> 
-			<appender name="${id}" class="ch.qos.logback.core.FileAppender"> 
-				<File>byUser/${id}.log</File> 
-				<layout class="ch.qos.logback.classic.PatternLayout"> 
-					<Pattern>%d{yyyy.MM.dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{30} - %msg%n</Pattern> 
-				</layout> 
-			</appender> 
-		</sift> 
-	</appender>
-
-	<!-- 条件输出log -->
-	<if condition='property("isToFile").equals("true")'>
-		<then>
-			<logger name="com.lydck">
-				<appender-ref ref="file" />
-			</logger>
-		</then>
-	</if>
-
+	
 	<!-- 业务代码的logger -->
 	<logger name="com.lydck" level="debug" />
 
 	<!-- spring框架的logger -->
-	<logger name="org.springframework" level="TRACE" />
+	<logger name="org.springframework" level="debug" />
 
 	<!-- 根logger -->
-	<root level="debug">
+	<root level="info">
 		<appender-ref ref="console" />
-		<appender-ref ref="DB" />
-		<appender-ref ref="SIFTING" />
 	</root>
 </configuration>
